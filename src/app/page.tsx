@@ -18,7 +18,12 @@ function App() {
     if (selectedFile !== null)
       formData.append('image', selectedFile);
 
-    fetch('process.env.BACKEND_URL', {
+    if (process.env.BACKEND_URL === undefined) {
+      console.error('BACKEND_URL is not defined');
+      return;
+    }
+
+    fetch(process.env.BACKEND_URL, {
       method: 'POST',
       body: formData,
     })
