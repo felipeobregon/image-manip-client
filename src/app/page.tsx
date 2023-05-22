@@ -13,19 +13,16 @@ function App() {
     }
   };
 
+
   const handleUpload = () => {
     const formData = new FormData();
     if (selectedFile !== null)
       formData.append('image', selectedFile);
 
-    if (process.env.BACKEND_URL === undefined) {
-      console.error('BACKEND_URL is not defined');
-      return;
-    }
 
-    fetch(process.env.BACKEND_URL, {
+    fetch('/api', {
       method: 'POST',
-      body: formData,
+      body: formData
     })
       .then((response) => response.blob())
       .then((blob) => {
